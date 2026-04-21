@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ASAP — AsaliAsPossible</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --amber: #F5A623;
+    --amber-dark: #C97D0E;
+    --amber-light: #FDD07A;
+    --amber-pale: #FFF8EC;
+    --black: #1A1A1A;
+    --gray: #6B6B6B;
+    --gray-light: #F4F4F2;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 6%;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(245,166,35,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--black);
+    letter-spacing: -1px;
+  }
+
+  .nav-logo span { color: var(--amber); }
+
+  nav a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--amber); }
+
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+
+  .nav-cta {
+    background: var(--amber);
+    color: var(--black) !important;
+    padding: 0.55rem 1.4rem;
+    border-radius: 100px;
+    font-weight: 500;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--amber-dark) !important; color: var(--white) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 8rem 6% 4rem;
+    background: var(--amber-pale);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-hex-bg {
+    position: absolute; inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='69'%3E%3Cpolygon points='30,0 60,17 60,52 30,69 0,52 0,17' fill='none' stroke='%23C97D0E' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-size: 60px 69px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(245,166,35,0.15);
+    color: var(--amber-dark);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.4rem 1.2rem;
+    border-radius: 100px;
+    border: 1px solid rgba(245,166,35,0.3);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+
+  .hero-title span { color: var(--amber); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 300;
+    color: var(--gray);
+    max-width: 620px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.7s ease 0.2s both;
+  }
+
+  .hero-sub strong { color: var(--black); font-weight: 500; }
+
+  .hero-cta {
+    display: inline-block;
+    background: var(--black);
+    color: var(--white);
+    padding: 1rem 2.5rem;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: background 0.2s, transform 0.2s;
+    animation: fadeUp 0.7s ease 0.3s both;
+  }
+
+  .hero-cta:hover { background: var(--amber); color: var(--black); transform: translateY(-2px); }
+
+  .hero-stat-row {
+    display: flex; gap: 3rem;
+    margin-top: 4rem;
+    animation: fadeUp 0.7s ease 0.4s both;
+  }
+
+  .hero-stat { text-align: center; }
+
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--amber);
+  }
+
+  .hero-stat-label {
+    font-size: 0.78rem;
+    color: var(--gray);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-top: 0.25rem;
+  }
+
+  .hero-stat-divider {
+    width: 1px; background: rgba(0,0,0,0.1);
+    height: 50px; align-self: center;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 6%; }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-body {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--gray);
+    line-height: 1.8;
+    max-width: 580px;
+  }
+
+  /* ── PROBLEM ── */
+  #problem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    background: var(--white);
+  }
+
+  .problem-text {}
+
+  .problem-cards {
+    display: flex; flex-direction: column; gap: 1.2rem;
+  }
+
+  .problem-card {
+    background: var(--amber-pale);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .problem-card:hover { transform: translateX(4px); box-shadow: 0 4px 24px rgba(245,166,35,0.12); }
+
+  .problem-card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 1;
+    min-width: 70px;
+  }
+
+  .problem-card-text strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 0.3rem;
+  }
+
+  .problem-card-text span {
+    font-size: 0.82rem;
+    color: var(--gray);
+    font-weight: 300;
+  }
+
+  /* ── SOLUTION ── */
+  #solution { background: var(--black); color: var(--white); }
+
+  #solution .section-title { color: var(--white); }
+  #solution .section-body { color: rgba(255,255,255,0.55); }
+
+  .solution-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 900px) {
+    .solution-steps { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .step {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .step:hover { background: rgba(245,166,35,0.08); border-color: rgba(245,166,35,0.2); }
+
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgba(245,166,35,0.2);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .step-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .step h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.3px;
+  }
+
+  .step p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .step-example {
+    margin-top: 1rem;
+    background: rgba(245,166,35,0.1);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    font-size: 0.78rem;
+    color: var(--amber-light);
+    font-style: italic;
+  }
+
+  /* ── IMPACT ── */
+  #impact { background: var(--amber-pale); }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .impact-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border: 1px solid rgba(245,166,35,0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .impact-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(245,166,35,0.15); }
+
+  .impact-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+
+  .impact-label {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 0.4rem;
+  }
+
+  .impact-desc {
+    font-size: 0.78rem;
+    color: var(--gray);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    background: var(--white);
+  }
+
+  .about-image-block {
+    position: relative;
+  }
+
+  .about-hex-card {
+    background: var(--amber-pale);
+    border-radius: 32px;
+    padding: 3rem;
+    border: 1px solid rgba(245,166,35,0.2);
+    text-align: center;
+  }
+
+  .about-hex-svg {
+    width: 120px; height: 120px;
+    margin: 0 auto 1.5rem;
+    display: block;
+  }
+
+  .about-hex-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.5px;
+  }
+
+  .about-hex-card p {
+    font-size: 0.82rem;
+    color: var(--gray);
+    margin-top: 0.4rem;
+    font-weight: 300;
+  }
+
+  .about-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; justify-content: center;
+  }
+
+  .tag {
+    background: rgba(245,166,35,0.12);
+    color: var(--amber-dark);
+    border: 1px solid rgba(245,166,35,0.25);
+    border-radius: 100px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--black); color: var(--white); }
+
+  #contact .section-title { color: var(--white); }
+  #contact .section-body { color: rgba(255,255,255,0.5); margin-bottom: 3rem; }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-width: 680px;
+  }
+
+  .form-grid .full { grid-column: 1 / -1; }
+
+  input, select, textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 0.9rem 1.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+
+  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+  select option { background: #1A1A1A; color: var(--white); }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--amber);
+    background: rgba(245,166,35,0.06);
+  }
+
+  textarea { resize: vertical; min-height: 100px; }
+
+  .submit-btn {
+    background: var(--amber);
+    color: var(--black);
+    border: none;
+    border-radius: 100px;
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 0.5rem;
+  }
+
+  .submit-btn:hover { background: var(--amber-light); transform: translateY(-2px); }
+
+  .form-success {
+    display: none;
+    background: rgba(245,166,35,0.1);
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    color: var(--amber-light);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    max-width: 680px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #111;
+    padding: 2.5rem 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+
+  .footer-logo span { color: var(--amber); }
+
+  .footer-links { display: flex; gap: 1.5rem; }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--amber); }
+
+  .footer-copy {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    #problem, #about { grid-template-columns: 1fr; gap: 2.5rem; }
+    .solution-steps, .impact-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid .full { grid-column: 1; }
+    .hero-stat-row { flex-wrap: wrap; gap: 1.5rem; justify-content: center; }
+    .hero-stat-divider { display: none; }
+    .nav-links { gap: 1rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ASAP<span>.</span></div>
+  <div class="nav-links">
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#impact">Impact</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="nav-cta">Partner With Us</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-hex-bg"></div>
+  <div class="hero-badge">🇷🇼 Smart Hive Monitoring · Rwanda</div>
+  <h1 class="hero-title">Asali<span>As</span>Possible</h1>
+  <p class="hero-sub">
+    <strong>40% of bee colonies in Bugesera collapse</strong> because heat stress alerts reach farmers too late. By then, the hive is already dying. ASAP sends the alert before that happens.
+  </p>
+  <a href="#contact" class="hero-cta">Partner With Us →</a>
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <div class="hero-stat-num">40%</div>
+      <div class="hero-stat-label">Colony loss from delayed alerts</div>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">150K</div>
+      <div class="hero-stat-label">Rwandan beekeeping households</div>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">$235B</div>
+      <div class="hero-stat-label">Global food security at risk</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="problem-text reveal">
+    <p class="section-label">The Problem</p>
+    <h2 class="section-title">Bees are dying while farmers wait for answers</h2>
+    <p class="section-body">
+      In Bugesera District, smallholder beekeepers are losing nearly half their colonies every season. Heat stress builds inside hives undetected. Existing systems collect data but leave farmers to interpret it themselves. By the time they act, the colony is gone. 150,000 Rwandan households depend on beekeeping. They cannot afford to keep losing hives to a problem that is entirely preventable.
+    </p>
+  </div>
+  <div class="problem-cards reveal">
+    <div class="problem-card">
+      <div class="problem-card-num">40%</div>
+      <div class="problem-card-text">
+        <strong>Colony loss from heat stress</strong>
+        <span>Alerts reach farmers after the hive is already dying. There is no time to act.</span>
+      </div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-card-num">150K</div>
+      <div class="problem-card-text">
+        <strong>Households depend on beekeeping</strong>
+        <span>Lost colonies mean lost livelihoods for Rwandan smallholder farmers.</span>
+      </div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-card-num">$235B</div>
+      <div class="problem-card-text">
+        <strong>Global food security threatened</strong>
+        <span>Bees pollinate crops worth $235 billion annually. Their decline is everyone's problem.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <p class="section-label reveal" style="color: rgba(245,166,35,0.7)">The Solution</p>
+  <h2 class="section-title reveal">From sensor to SMS in seconds</h2>
+  <p class="section-body reveal">
+    ASAP is a mobile app connected to a sensor unit inside each hive. It monitors six variables, predicts health problems before they become fatal, and sends actionable recommendations to farmers. For those without smartphones, the same recommendation arrives as a plain SMS. No one is left out.
+  </p>
+  <div class="solution-steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <h3>Six sensors. One hive.</h3>
+      <p>A hardware unit sits inside each beehive and tracks six variables continuously.</p>
+      <ul style="margin-top:0.9rem; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:0.4rem;">
+        <li style="font-size:0.78rem;color:rgba(255,255,255,0.4);font-weight:300;">— Temperature</li>
+        <li style="font-size:0.78rem;color:rgba(255,255,255,0.4);font-weight:300;">— Humidity</li>
+        <li style="font-size:0.78rem;color:rgba(255,255,255,0.4);font-weight:300;">— Heat stress index</li>
+        <li style="font-size:0.78rem;color:rgba(255,255,255,0.4);font-weight:300;">— Bee sound (acoustic)</li>
+        <li style="font-size:0.78rem;color:rgba(255,255,255,0.4);font-weight:300;">— Bee movement</li>
+        <li style="font-size:0.78rem;color:rgba(255,255,255,0.4);font-weight:300;">— Weight (honey yield)</li>
+      </ul>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <h3>Predictions before problems</h3>
+      <p>Sensor data feeds into a CNN-LSTM model trained on 26,000 hive audio samples. It detects early stress signatures — before they become fatal. 85% prediction accuracy, validated through research at ALU.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <h3>Clear recommendations</h3>
+      <p>The model does not just flag a problem. It tells the farmer exactly what to do. Recommendations are specific to the hive, the sensor reading, and the time of day.</p>
+      <div class="step-example">"Hive Jamo is overheating. Add shade before midday."</div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">04</div>
+      <h3>App and SMS. No one left out.</h3>
+      <p>Farmers with smartphones access a full mobile app — live hive data, history, and recommendations in one place. We are currently building it.</p>
+      <p style="margin-top:0.7rem;">Farmers with basic phones receive the same recommendation as a plain SMS. Same information. No smartphone required.</p>
+      <div class="step-example">"Hive Jamo is ready to split."</div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+    <p class="section-label reveal">Projected Impact</p>
+    <h2 class="section-title reveal">Built on validated science, designed for scale</h2>
+    <p class="section-body reveal" style="margin: 0 auto;">
+      Our capstone research validated the core technology. Year 1 targets are grounded in on-the-ground realities of Bugesera District.
+    </p>
+  </div>
+  <div class="impact-grid">
+    <div class="impact-card reveal">
+      <div class="impact-num">85%</div>
+      <div class="impact-label">Model accuracy</div>
+      <div class="impact-desc">Validated through capstone research at ALU. Trained on 26,000 Bugesera hive audio samples.</div>
+    </div>
+    <div class="impact-card reveal">
+      <div class="impact-num">40% → 20%</div>
+      <div class="impact-label">Colony loss halved</div>
+      <div class="impact-desc">Projected reduction within the first season. Earlier alerts mean farmers act while it still matters.</div>
+    </div>
+    <div class="impact-card reveal">
+      <div class="impact-num">50</div>
+      <div class="impact-label">Farmers in Year 1</div>
+      <div class="impact-desc">Bugesera District pilot launching with 50 cooperative-member beekeepers. No upfront cost to join.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-image-block reveal">
+    <div class="about-hex-card">
+      <svg class="about-hex-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="60,5 110,32 110,88 60,115 10,88 10,32" fill="#F5A623" opacity="0.15" stroke="#F5A623" stroke-width="1.5"/>
+        <polygon points="60,18 98,40 98,80 60,102 22,80 22,40" fill="#F5A623" opacity="0.15"/>
+        <polygon points="60,30 88,47 88,73 60,90 32,73 32,47" fill="#F5A623" opacity="0.3"/>
+        <text x="60" y="68" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-weight="700" fill="#C97D0E">🐝</text>
+      </svg>
+      <h4>AsaliAsPossible</h4>
+      <p>Smart beekeeping for Rwandan smallholder farmers</p>
+      <div class="about-tags">
+        <span class="tag">AgriTech</span>
+        <span class="tag">IoT</span>
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Rwanda</span>
+        <span class="tag">Sustainability</span>
+        <span class="tag">Food Security</span>
+      </div>
+    </div>
+  </div>
+  <div class="reveal">
+    <p class="section-label">Who We Are</p>
+    <h2 class="section-title">Built in Rwanda. Grounded in research.</h2>
+    <p class="section-body">
+      ASAP grew out of final-year research at African Leadership University in Kigali. The system combines CNN-LSTM audio classification, LSTM environmental forecasting, and a reinforcement learning advisory layer. All of it delivered through a basic SMS.
+    </p>
+    <p class="section-body" style="margin-top: 1.2rem;">
+      We are a beVisioneers: The Mercedes-Benz Fellowship team. Our revenue model is simple. Farmers pay nothing upfront. They share a portion of the extra honey they produce. Our success is tied directly to theirs.
+    </p>
+    <p class="section-body" style="margin-top: 1.2rem;">
+      Beyond monitoring, ASAP is the foundation of a broader value chain. Healthier hives mean more honey. More honey means value-added products. We are building toward a Rwandan wellness brand where smallholder farmers earn at every stage — from hive to shelf.
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label reveal">Get In Touch</p>
+  <h2 class="section-title reveal">Partner With Us</h2>
+  <p class="section-body reveal">
+    We are looking for two things. Pilot partners in East Africa ready to deploy ASAP with smallholder beekeepers. And seed funding or grants to cover hardware and field deployment for our 50-farmer Bugesera pilot. If either fits you, reach out.
+  </p>
+  <form id="contactForm" onsubmit="handleSubmit(event)">
+    <div class="form-grid">
+      <input type="text" placeholder="Your name" required/>
+      <input type="email" placeholder="Email address" required/>
+      <input type="text" placeholder="Organisation"/>
+      <select required>
+        <option value="" disabled selected>I am interested as a...</option>
+        <option>Pilot Partner</option>
+        <option>Investor / Funder</option>
+        <option>Mentor / Advisor</option>
+        <option>Researcher / Academic</option>
+        <option>Other</option>
+      </select>
+      <textarea class="full" placeholder="Tell us briefly about your interest or how you'd like to connect..."></textarea>
+    </div>
+    <button type="submit" class="submit-btn">Send Message →</button>
+  </form>
+  <div class="form-success" id="formSuccess">
+    ✓ Thank you for reaching out. We will be in touch soon.
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ASAP<span>.</span></div>
+  <div class="footer-links">
+    <a href="mailto:asaliaspossible@gmail.com">Email</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">GitHub</a>
+  </div>
+  <div class="footer-copy">© 2026 AsaliAsPossible · Kigali, Rwanda 🇷🇼</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+</script>
+</body>
+</html>
